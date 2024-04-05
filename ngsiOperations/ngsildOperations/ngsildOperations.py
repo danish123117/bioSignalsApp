@@ -41,7 +41,6 @@ def ngsi_patch(data,entity,url ="localhost:1026"):
     The function update the value on an NGSI entity using patch to orion context broker
     """
     url = f"http://{url}/ngsi-ld/v1/entities/{entity}/attrs"
-  #  url = f'http://localhost:1026/v2/entities/' + entity +'/attrs?type=Stress'
     headers = {
         'Content-Type':"application/json",
         "Link": '"<http://context/ngsi-context.jsonld>"; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
