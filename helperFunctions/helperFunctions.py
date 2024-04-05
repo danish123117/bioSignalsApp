@@ -9,6 +9,6 @@ def data_to_np(data, key="values"):
     """
     parsed_data = data[key]
     converted_data = [[float(num) for num in sublist] for sublist in parsed_data]
-    numpy_arr = np.array(converted_data).T
+    numpy_arr = np.array(converted_data)
     return numpy_arr
 

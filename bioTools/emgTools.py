@@ -1,7 +1,7 @@
 from scipy import signal
 import numpy as np
 
-def data_filter(data, sampling_frequency, band_lower, band_upper,notch_filter=True,removed_frequency=50,notch_quality=30):
+def data_filter(data, sampling_frequency, band_lower, band_upper,notch_filter=True,removed_frequency=50,notch_quality=30, axis =1 ):
     """
     This function performs a combined band pass filtering and notch filter
     data : is an N column input numpy array where each column represents an EMG data channel
@@ -10,7 +10,8 @@ def data_filter(data, sampling_frequency, band_lower, band_upper,notch_filter=Tr
     removed_frequency: is the frequency removed by the notch filter by default it is set to 50hz AC frequency
     notch_quality : is the quality of notch filteration set to 30 by default.
     """
-   #data = data.T
+    if axis == 1: 
+        data = data.T
     Niquist_frequency = sampling_frequency/2
     nor_band_lo = band_lower/Niquist_frequency
     nor_band_hi = band_upper/Niquist_frequency
@@ -24,7 +25,7 @@ def data_filter(data, sampling_frequency, band_lower, band_upper,notch_filter=Tr
         filtered = np.array(signal.sosfiltfilt(sos_band , data))
     return filtered
 
-def out_stft(signal, sampling_frequency): 
+def out_stft(data, sampling_frequency, axis =1): 
     """
     Performs feature extraction on EMG data 
     Input: 
@@ -34,13 +35,14 @@ def out_stft(signal, sampling_frequency):
     N element lists containing median frequency , mean frequency, 
     mean power frequency and zero crossing rate   
     """
-   #data = data.T
-    num_channels, num_samples = signal.shape
+    if axis ==1: 
+        data = data.T
+    num_channels, num_samples = data.shape
     durations = np.full(num_channels, num_samples / sampling_frequency)
-    diffs = np.diff(np.sign(signal), axis=1)
+    diffs = np.diff(np.sign(data), axis=1)
     zero_crossings = np.sum(diffs != 0, axis=1)
     frequency_zeroCrossing = zero_crossings / durations
-    frequency_domain = np.fft.fft(signal, axis=0)
+    frequency_domain = np.fft.fft(data, axis=0)
     magnitude_spectrum = np.abs(frequency_domain)
     sampling_rate = 1 / sampling_frequency
     frequency_bins = np.fft.fftfreq(num_channels, d=sampling_rate)
