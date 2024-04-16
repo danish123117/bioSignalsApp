@@ -11,7 +11,7 @@ def stress_payload(frequency_median_norm, frequency_mean_norm, frequency_meanPow
           "type": "array",
           "value": frequency_meanPower_norm
         },
-        "zeroCrossingFrequency": {
+        "zeroCrossingFrequencyState": {
           "type": "array",
           "value": frequency_zeroCrossing_norm
         },
