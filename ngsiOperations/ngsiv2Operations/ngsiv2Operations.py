@@ -35,18 +35,34 @@ def ngsi_get_historical(entity, window_length=5000, url="localhost:8668" , attri
    # if response.status_code == 200:
     return response.json()
 
-def ngsi_patch(data,entity,entity_type,url ="localhost:1026"):
+def ngsi_patch(data,entity,entity_type='Stress',url ="localhost:1026"):
     """
     The function update the value on an NGSI entity using patch to orion context broker
     """
-    url = f"http://{url}/v2/entities/{entity}/attrs/?type={entity_type}"
+    url_f = f"http://{url}/v2/entities/{entity}/attrs/?type={entity_type}"
   #  url = f'http://localhost:1026/v2/entities/' + entity +'/attrs?type=Stress'
     headers = {
         'Content-Type':"application/json"
   #      'fiware-service': 'openiot',
   #      'fiware-servicepath': '/'
      }
-    response = requests.patch(url, headers=headers, json=data)
+    response = requests.patch(url_f, headers=headers, json=data)
+    return response
+
+def ngsi_get_current(entity, url= "localhost:1026",entity_type='Stress'):
+    """
+    The function gets the value on an NGSI entity using patch to orion context broker
+    """
+    url_o = f"http://{url}/v2/entities/{entity}/attrs/?options=keyValues&type={entity_type}"
+  #  "http://192.168.32.144:1026/v2/entities/urn:ngsi-ld:Stress:001?options=keyValues&type=Stress"
+  #  url = f'http://localhost:1026/v2/entities/' + entity +'/attrs?type=Stress'
+    headers = {
+  #      'Content-Type':"application/json"
+  #      'fiware-service': 'openiot',
+  #      'fiware-servicepath': '/'
+     }
+    payload ={}
+    response = requests.request("GET", url_o, headers=headers, data=payload)
     return response
 
 

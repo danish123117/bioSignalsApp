@@ -6,7 +6,7 @@ import helperFunctions.helperFunctions as hp
 import bioTools.emgTools as emg
 
 
-def main():
+def anomaly_detector():
     entity = 'urn:ngsi-ld:Operator:001' # holds emg data
     entity2 = 'urn:ngsi-ld:Stress:001' # holds stress state as mean, median and mean power frequencies
     window_length = 5000
@@ -28,9 +28,9 @@ def main():
         
         payload_raw = v2.stress_payload(s_mean, s_med, s_mpower, s_zcf )    
         #json_data = json.dumps(payload_raw)
-        v2.ngsi_patch(payload_raw, entity2)
+        v2.ngsi_patch(payload_raw,entity2)
         if (time.time() - start_time) < 5:
             time.sleep(5- time.time() + start_time)
 
 if __name__ =="__main__":
-    main()
+    print("welcome to Ad code")

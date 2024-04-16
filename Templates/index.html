@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Operator Assist</title>
+    <link href=" {{url_for('static', filename = 'styles/styles.css')}}" rel ='stylesheet'/>
+
 </head>
 <body>
+    <h1> Trial name</h1>
+    <form action = "/trialName">
+        <input type = "text" name = "Trial name" id = "trial id" placeholder="Enter Trial Name"/>
+        <button type = "submit">Submit </button>
+    </form>
     
 </body>
 </html>

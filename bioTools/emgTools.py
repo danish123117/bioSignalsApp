@@ -66,8 +66,8 @@ def stress_out(frequency_median, frequency_mean, frequency_meanPower, frequency_
     p_mean = np.array([parms["meanFrequency"]["ch" + str(i+1)] for i in range(len(frequency_mean))])
     p_pow = np.array([parms["meanPowerFrequency"]["ch" + str(i+1)] for i in range(len(frequency_meanPower))])
     p_zero = np.array([parms["zeroCrossingFrequency"]["ch" + str(i+1)] for i in range(len(frequency_zeroCrossing))])
-    # Calculate normalized values using vectorized operations
-    frequency_median_norm = p_med / frequency_median
+    # Calculate normalized values using vectorized operations 
+    frequency_median_norm = p_med / frequency_median# test the correctness
     frequency_mean_norm = p_mean / frequency_mean
     frequency_meanPower_norm = p_pow / frequency_meanPower
     frequency_zeroCrossing_norm = p_zero / frequency_zeroCrossing
