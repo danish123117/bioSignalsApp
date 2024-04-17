@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Operator Platform</title>
+    <link href=" {{url_for('static', filename = 'css/styles.css')}}" rel ='stylesheet'/>
+
+</head>
+<body>
+    <h1> Trial name</h1>
+    <form action = "/setup">
+        <input type = "text" name = "Trial_name" id = "Trial_name" placeholder="Enter Trial Name"/>
+        <button type = "submit">Create new trial </button>
+    </form>
+    <h1>Historical Trial Data</h1>
+    <form action = "/historypage">
+        <button type = "submit">View trial history </button>
+    </form>
+    
+</body>
+</html>
+
