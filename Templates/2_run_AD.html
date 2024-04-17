@@ -8,9 +8,25 @@
 
 </head>
 <body>
-    <h1> Trial name</h1>
-    <form action = "/trial_success">
-        <input type = "text" name = "Trial name" id = "Trial id" placeholder="Enter Trial Name"/>
+    <h1> Trial Name: {{ trial }}</h1>
+    <h2>Entity Creation Status </h2>
+    <p>Sensor entity status :{{entity_sensor_code}} : {{entity_sensor_message}}<br>
+        Stress entity status :{{entity_stress_code}} : {{entity_stress_message}}  
+    </p>
+    <h2>Sensor Provision status</h2>
+    <p>Fiware Service path: {{servicepath_status}} : {{servicepath_message}} <br>
+        Sensor Provision: {{sensor_status}} : {{sensor_message}} 
+    </p>
+    <h2>Subscriptions Status </h2>
+    <p>Sensor entity subscription status: {{subs_sensor_code}} : {{subs_sensor_message}}<br>
+        Stress entity subscription status: {{subs_stress_code}} : {{subs_stress_message}}
+    </p>
+    <form action = '/runADCEP'>
+        <button type = "submit">Start Anomaly detector</button>
+    </form>
+
+    <form action = '/setup'>
+        <input type = "text" name = "Trial name" id = "Trial id" placeholder="Re-Enter Trial Name"/>
         <button type = "submit">Create new trial </button>
     </form>
     

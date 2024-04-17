@@ -1,9 +1,10 @@
 import paho.mqtt.client as mqtt
 import json 
 import requests 
-from ngsiOperations.ngsiv2Operations import ngsi_get_current
+from ngsiOperations.ngsiv2Operations.ngsiv2CrudOperations import ngsi_get_current
 import time 
 import numpy as np
+
 broker_address = "127.0.0.1"
 broker_port = 1883
 topic = "Robotstate"
@@ -23,18 +24,18 @@ def on_connect(client, userdata, flags, rc):
 def stop_trial(client_mqtt):
     client_mqtt.disconnect()
     client_mqtt.loop_stop()
-
-if __name__ == "__main__": 
+def CEP_UC1(entityStress, client_queue):
     time.sleep(5.2)
     indices = [0,1,4,5]
     client = mqtt.Client()
     client.on_connect = on_connect
     client.connect(broker_address, broker_port, 60)
     client.loop_start()
+    client_queue.put(client)
     while True:
         start_time = time.time()
         Rob_state = False 
-        stress_state = ngsi_get_current()
+        stress_state = ngsi_get_current(entityStress)
         mean= stress_state["meanFrequencyState"][indices]
         median= stress_state["medianFrequencyState"][indices]
         pow= stress_state["meanPowerFrequencyState"][indices]
@@ -47,6 +48,10 @@ if __name__ == "__main__":
         remaining_time -= time.time() - start_time
         if remaining_time > 0:
             time.sleep(remaining_time)
+
+if __name__ == "__main__": 
+    print("Welcome to UC1_CEP")
+
 
 
 

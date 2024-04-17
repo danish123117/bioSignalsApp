@@ -30,7 +30,7 @@ def ngsi_create_trial(sensor , stress):
      }  
     d_sensor = {
     "id": sensor,
-    "type": "Operator",
+    "type": "Sensor",
     "TimeStamp": {
       "type": "Text",
       "value": "132"
