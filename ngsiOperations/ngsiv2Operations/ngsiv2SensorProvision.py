@@ -34,7 +34,7 @@ def sensor_provision(sensor_entity,api_key='placeholder_api_key'):
             {
                 "device_id": "EMG1000",
                 "entity_name": sensor_entity,
-                "entity_type": "Operator",
+                "entity_type": "Sensor",
                 "transport":   "MQTT",
                 "timezone": "Europe/Berlin",
                 "attributes": [

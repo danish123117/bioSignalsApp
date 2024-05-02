@@ -2,7 +2,7 @@ from flask import Flask , render_template, request
 from ngsiOperations.ngsiv2Operations.ngsiv2EntityCreator import ngsi_create_trial
 from ngsiOperations.ngsiv2Operations.ngsiv2SensorProvision import sensor_provision
 from ngsiOperations.ngsiv2Operations.ngsiv2Subscriptions import createSubscriptions
-from AD import anomaly_detector
+from AD import*
 from CEP import*
 from waitress import serve
 import threading
@@ -21,15 +21,18 @@ def index():
 
 def create_Trial():
     # could add health check as a route to render failure message
-    trial_name = request.get("Trial_name")
+    trial_name = request.args.get("trial name")
     # Add exception handler.
-    if not bool(trial_name.strip()):
+   # if not bool(trial_name.strip()):
         # add details message that trial name cannot be empty
-        return render_template("trial_fail.html")
+     #   return render_template("trial_fail.html")
     global stress_entity
     global sensor_entity
     stress_entity= "urn:ngsi-ld:Stress_" +trial_name +":001"
-    sensor_entity = "urn:ngsi-ld:Sensor_" +trial_name+":001"  # this could create potential issues in subscriptions
+    sensor_entity = "urn:ngsi-ld:Sensor_" +trial_name+":001"
+    #stress_entity= "Stress:003" 
+    #sensor_entity = "Sensor:003" 
+      # this could create potential issues in subscriptions
     resp_stress , resp_sensor = ngsi_create_trial(sensor = sensor_entity,stress=stress_entity)
     #if resp_stress.status_code !=200 or resp_sensor.status_code != 200: 
         #add parameters for response code and messsage related to failure mode 
@@ -43,7 +46,7 @@ def create_Trial():
         # case for sensor provision 
         #return render_template('trial_fail.html')
     
-    subscription_sensor_response, subscription_stress_response = createSubscriptions() 
+    subscription_sensor_response, subscription_stress_response = createSubscriptions(trial_name) 
     #if subscription_sensor_response.status_code !=200 or subscription_stress_response.status_code != 200: 
         # some parameters for the response codes
         #return render_template('trial_fail.html')
@@ -68,13 +71,11 @@ def create_Trial():
 def run_AD():
     client_thread_1 = threading.Thread(target=anomaly_detector_thread, args=(sensor_entity,stress_entity))
     client_thread_1.start()
-    global client
-    client = None
-    client_thread_2 = threading.Thread(target=CEP_UC1_thread, args=(stress_entity,))
+    client_thread_2 = threading.Thread(target=CEP_UC1_thread, args=(stress_entity,client))
     client_thread_2.start()# how to do this becauee client wont be returned unless you stop the trial
     return render_template('3_stop_trial.html' )
-def CEP_UC1_thread(entityStress):
-    CEP_UC1(entityStress, client_queue)
+def CEP_UC1_thread(entityStress, client):
+    CEP_UC1(entityStress, client_queue, client)
 def anomaly_detector_thread(sensor_entity,stress_entity):
     anomaly_detector(sensor_entity,stress_entity)
 

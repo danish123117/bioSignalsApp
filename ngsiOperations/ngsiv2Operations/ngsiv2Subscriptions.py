@@ -1,7 +1,7 @@
 import requests
 import json
 # generalise this one to take parameters for iD pattern and attributes as inputs. 
-def createSubscriptions():
+def createSubscriptions(entity_name):
     url_t = 'http://localhost:1026/v2/subscriptions/'
 
     headers_t = {
@@ -15,7 +15,7 @@ def createSubscriptions():
         "subject": {
             "entities": [
                 {
-                    "idPattern": "Sensor.*"
+                    "idPattern": "Thing:EMG1000.*" 
                 }
             ],
             "condition": {
@@ -47,7 +47,7 @@ def createSubscriptions():
         "subject": {
             "entities": [
                 {
-                    "idPattern": "Stress.*"
+                    "idPattern": "urn:ngsi-ld:Stress_"+ entity_name+".*" 
                 }
             ],
             "condition": {

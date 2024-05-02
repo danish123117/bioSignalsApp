@@ -1,5 +1,6 @@
 import time
 import json
+import os
 import numpy as np
 import ngsiOperations.ngsiv2Operations.ngsiv2CrudOperations as v2
 import helperFunctions.helperFunctions as hp
@@ -7,10 +8,12 @@ import bioTools.emgTools as emg
 
 
 def anomaly_detector(entity_sensor,entity_stress):
-    entity =  entity_sensor#  holds emg data eg. 'urn:ngsi-ld:Operator:001'
+    entity = 'Thing:EMG1000'# entity_sensor#  holds emg data eg. 'urn:ngsi-ld:Operator:001'
     entity2 =  entity_stress# holds stress state as mean, median and mean power frequencies e.g. 'urn:ngsi-ld:Stress:001'
     window_length = 5000
-    with open('params.json', 'r') as json_file:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    params_path = os.path.join(script_dir, 'parms.json')
+    with open(params_path, 'r') as json_file:
         parms = json.load(json_file)
       
     time.sleep(5)

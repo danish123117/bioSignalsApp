@@ -1,6 +1,6 @@
 import paho.mqtt.client as mqtt
 import json 
-import requests 
+#import requests 
 from ngsiOperations.ngsiv2Operations.ngsiv2CrudOperations import ngsi_get_current
 import time 
 import numpy as np
@@ -24,10 +24,10 @@ def on_connect(client, userdata, flags, rc):
 def stop_trial(client_mqtt):
     client_mqtt.disconnect()
     client_mqtt.loop_stop()
-def CEP_UC1(entityStress, client_queue):
+def CEP_UC1(entityStress, client_queue, client):
     time.sleep(5.2)
     indices = [0,1,4,5]
-    client = mqtt.Client()
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
     client.on_connect = on_connect
     client.connect(broker_address, broker_port, 60)
     client.loop_start()
