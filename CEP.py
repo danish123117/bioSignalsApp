@@ -29,8 +29,8 @@ def on_disconnect(client, userdata, rc):
 def CEP_UC1(entityStress):
     time.sleep(5.2)
     indices = np.array([0, 1, 4, 5])
-    client = mqtt.Client()
-   # client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
+    #client = mqtt.Client()
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
     client.connect(broker_address, broker_port, 60)

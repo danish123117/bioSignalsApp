@@ -3,5 +3,5 @@ RUN mkdir /myapp
 WORKDIR /myapp
 COPY . .
 RUN python3 -m pip install -r requirements.txt
-EXPOSE 3000
+EXPOSE 3002 
 CMD ["python3", "server.py"]
