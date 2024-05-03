@@ -7,8 +7,8 @@ from CEP import*
 from waitress import serve
 import threading
 import queue
-client = None
-client_queue = queue.Queue()
+#client = None
+#client_queue = queue.Queue()
 app = Flask(__name__)
 
 @app.route('/')
@@ -30,8 +30,8 @@ def create_Trial():
     global sensor_entity
     #stress_entity= "urn:ngsi-ld:Stress_" +trial_name +":001"
     #sensor_entity = "urn:ngsi-ld:Sensor_" +trial_name+":001"
-    stress_entity= "urn:ngsi-ld:Stress:004" 
-    sensor_entity = "urn:ngsi-ld:Sensor:004" 
+    stress_entity= "Stress:005" 
+    sensor_entity = "Sensor:005" 
       # this could create potential issues in subscriptions
     resp_stress , resp_sensor = ngsi_create_trial(sensor = sensor_entity,stress=stress_entity)
     #if resp_stress.status_code !=200 or resp_sensor.status_code != 200: 
@@ -67,22 +67,27 @@ def create_Trial():
         subs_stress_code=subscription_stress_response.status_code,
         subs_stress_message =subscription_stress_response.text               
                            )
-@app.route('/runADCEP')
+@app.route('/runAD')
 def run_AD():
     #anomaly_detector(sensor_entity,stress_entity)
-    client_thread_1 = threading.Thread(target=anomaly_detector_thread, args=(sensor_entity,stress_entity))
+    client_thread_1 = threading.Thread(target=anomaly_detector_thread, args=(sensor_entity, stress_entity))
     client_thread_1.start()
-   # client_thread_2 = threading.Thread(target=CEP_UC1_thread, args=(stress_entity,client))
-   # client_thread_2.start()# how to do this becauee client wont be returned unless you stop the trial
-    return render_template('3_stop_trial.html' )
-#def CEP_UC1_thread(entityStress, client):
- #   CEP_UC1(entityStress, client_queue, client)
+# how to do this becauee client wont be returned unless you stop the trial
+    return render_template('test.html' )
 def anomaly_detector_thread(sensor_entity,stress_entity):
     anomaly_detector(sensor_entity,stress_entity)
 
+@app.route('/runCEP')
+def run_CEP():
+    client_thread_2 = threading.Thread(target=CEP_UC1_thread, args=(stress_entity,))
+    client_thread_2.start()
+    return render_template('3_stop_trial.html' )
+def CEP_UC1_thread(entityStress):
+    CEP_UC1(entityStress)
+
 @app.route('/stop')
 def stop():
-    stop_trial(client)
+    #stop_trial(client)
     return render_template('index.html')
 # something to get data from previus trials this button should be availible on Index 
 

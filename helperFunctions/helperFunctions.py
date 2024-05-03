@@ -1,5 +1,6 @@
 import numpy as np
 import json
+import ast
 
 def data_to_np(data, key="values"):
     """
@@ -10,6 +11,8 @@ def data_to_np(data, key="values"):
     """
    # data = json.loads(data)
     parsed_data = data[key]
-    converted_data = [[float(num) for num in sublist] for sublist in parsed_data]
+    intlist =[ast.literal_eval(string) for string in parsed_data]
+   # print(parsed_data)
+    converted_data = [[float(num) for num in sublist] for sublist in intlist]
     numpy_arr = np.array(converted_data)
     return numpy_arr
