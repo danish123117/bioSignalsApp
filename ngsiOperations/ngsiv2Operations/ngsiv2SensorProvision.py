@@ -11,7 +11,7 @@ def sensor_provision(sensor_entity,api_key='placeholder_api_key'):
     data = {
         "services": [
             {
-                "apikey": "danishabbas",
+                "apikey": "danishabbas1",
                 "cbroker": "http://orion:1026",
                 "entity_type": "Thing",
                 "resource": "/iot/json"

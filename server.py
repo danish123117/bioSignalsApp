@@ -28,10 +28,10 @@ def create_Trial():
      #   return render_template("trial_fail.html")
     global stress_entity
     global sensor_entity
-    stress_entity= "urn:ngsi-ld:Stress_" +trial_name +":001"
-    sensor_entity = "urn:ngsi-ld:Sensor_" +trial_name+":001"
-    #stress_entity= "Stress:003" 
-    #sensor_entity = "Sensor:003" 
+    #stress_entity= "urn:ngsi-ld:Stress_" +trial_name +":001"
+    #sensor_entity = "urn:ngsi-ld:Sensor_" +trial_name+":001"
+    stress_entity= "urn:ngsi-ld:Stress:004" 
+    sensor_entity = "urn:ngsi-ld:Sensor:004" 
       # this could create potential issues in subscriptions
     resp_stress , resp_sensor = ngsi_create_trial(sensor = sensor_entity,stress=stress_entity)
     #if resp_stress.status_code !=200 or resp_sensor.status_code != 200: 
@@ -69,13 +69,14 @@ def create_Trial():
                            )
 @app.route('/runADCEP')
 def run_AD():
+    #anomaly_detector(sensor_entity,stress_entity)
     client_thread_1 = threading.Thread(target=anomaly_detector_thread, args=(sensor_entity,stress_entity))
     client_thread_1.start()
-    client_thread_2 = threading.Thread(target=CEP_UC1_thread, args=(stress_entity,client))
-    client_thread_2.start()# how to do this becauee client wont be returned unless you stop the trial
+   # client_thread_2 = threading.Thread(target=CEP_UC1_thread, args=(stress_entity,client))
+   # client_thread_2.start()# how to do this becauee client wont be returned unless you stop the trial
     return render_template('3_stop_trial.html' )
-def CEP_UC1_thread(entityStress, client):
-    CEP_UC1(entityStress, client_queue, client)
+#def CEP_UC1_thread(entityStress, client):
+ #   CEP_UC1(entityStress, client_queue, client)
 def anomaly_detector_thread(sensor_entity,stress_entity):
     anomaly_detector(sensor_entity,stress_entity)
 

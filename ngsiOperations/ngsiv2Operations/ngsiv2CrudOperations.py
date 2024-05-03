@@ -26,7 +26,8 @@ def ngsi_get_historical(entity, window_length=5000, url="localhost:8668" , attri
     payload ={}
     headers = {
         'fiware-service': 'openiot',
-        'fiware-servicepath': '/'
+        'fiware-servicepath': '/',
+        'Content-Type':"application/json"
         }
     params = {
         'lastN': window_length
@@ -35,7 +36,7 @@ def ngsi_get_historical(entity, window_length=5000, url="localhost:8668" , attri
    # if response.status_code == 200:
     return response.json()
 
-def ngsi_patch(data,entity,entity_type='Stress',url ="localhost:1026"):
+def ngsi_patch(payload,entity,entity_type='Stress',url ="localhost:1026"):
     """
     The function update the value on an NGSI entity using patch to orion context broker
     """
@@ -46,7 +47,7 @@ def ngsi_patch(data,entity,entity_type='Stress',url ="localhost:1026"):
   #      'fiware-service': 'openiot',
   #      'fiware-servicepath': '/'
      }
-    response = requests.patch(url_f, headers=headers, json=data)
+    response = requests.request("PATCH",url_f, headers=headers, data=payload)
     return response
 
 def ngsi_get_current(entity, url= "localhost:1026",entity_type='Stress'):

@@ -19,13 +19,13 @@ def ngsi_create_trial(sensor , stress):
       "type": "array",
       "value": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]},
     "meanFrequencyState": {
-      "type": "object",
+      "type": "array",
       "value": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] },
     "meanPowerFrequencyState": {
-      "type": "object",
+      "type": "array",
       "value": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]},
     "zeroCrossingFrequencyState": {
-      "type": "object",
+      "type": "array",
       "value": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}
      }  
     d_sensor = {

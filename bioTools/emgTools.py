@@ -35,12 +35,12 @@ def out_stft(data, sampling_frequency, axis =1):
     N element lists containing median frequency , mean frequency, 
     mean power frequency and zero crossing rate   
     """
-    if axis ==1: 
+    if axis !=1: 
         data = data.T
-    num_channels, num_samples = data.shape
+    num_samples, num_channels = data.shape
     durations = np.full(num_channels, num_samples / sampling_frequency)
-    diffs = np.diff(np.sign(data), axis=1)
-    zero_crossings = np.sum(diffs != 0, axis=1)
+    diffs = np.diff(np.sign(data), axis=0)
+    zero_crossings = np.sum(diffs != 0, axis=0)
     frequency_zeroCrossing = zero_crossings / durations
     frequency_domain = np.fft.fft(data, axis=0)
     magnitude_spectrum = np.abs(frequency_domain)

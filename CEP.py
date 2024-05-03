@@ -3,7 +3,7 @@ import json
 #import requests 
 from ngsiOperations.ngsiv2Operations.ngsiv2CrudOperations import ngsi_get_current
 import time 
-import numpy as np
+import numpy as np 
 
 broker_address = "127.0.0.1"
 broker_port = 1883

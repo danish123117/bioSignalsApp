@@ -15,7 +15,7 @@ def createSubscriptions(entity_name):
         "subject": {
             "entities": [
                 {
-                    "idPattern": "Thing:EMG1000.*" 
+                    "idPattern": "urn:ngsi-ld:Sensor.*" 
                 }
             ],
             "condition": {
@@ -47,7 +47,7 @@ def createSubscriptions(entity_name):
         "subject": {
             "entities": [
                 {
-                    "idPattern": "urn:ngsi-ld:Stress_"+ entity_name+".*" 
+                    "idPattern": "urn:ngsi-ld:Stress.*" 
                 }
             ],
             "condition": {
