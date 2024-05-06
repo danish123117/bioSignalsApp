@@ -1,16 +1,10 @@
-# Ignore Python cache files
 __pycache__
-# Ignore virtual environment files
-venv/
+.venv/
 .env
-# Ignore local development files
 *.pyc
 *.pyo
 *.pyd
-# Ignore editor-specific files
 .vscode/
 .idea/
-# Ignore local configuration files
 .DS_Store
 *.log
-# Ignore any other files or directories specific to your project
